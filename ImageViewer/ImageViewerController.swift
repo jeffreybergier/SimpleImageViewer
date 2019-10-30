@@ -1,13 +1,13 @@
 import UIKit
 import AVFoundation
 
-public final class ImageViewerController: UIViewController {
+open class ImageViewerController: UIViewController {
     @IBOutlet fileprivate var scrollView: UIScrollView!
     @IBOutlet fileprivate var imageView: UIImageView!
     @IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
     
     fileprivate var transitionHandler: ImageViewerTransitioningHandler?
-    fileprivate let configuration: ImageViewerConfiguration?
+    public let configuration: ImageViewerConfiguration?
     
     public override var prefersStatusBarHidden: Bool {
         return true
@@ -15,7 +15,8 @@ public final class ImageViewerController: UIViewController {
     
     public init(configuration: ImageViewerConfiguration?) {
         self.configuration = configuration
-        super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
+        super.init(nibName: String(describing: ImageViewerController.self),
+                   bundle: Bundle(for: ImageViewerController.self))
         
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
@@ -94,7 +95,7 @@ private extension ImageViewerController {
         }
     }
     
-    @IBAction func closeButtonPressed() {
+    @IBAction open func closeButtonPressed() {
         dismiss(animated: true)
     }
     
