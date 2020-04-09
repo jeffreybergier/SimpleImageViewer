@@ -58,14 +58,14 @@ extension ImageViewerController: UIGestureRecognizerDelegate {
     }
 }
 
-private extension ImageViewerController {
-    func setupScrollView() {
+extension ImageViewerController {
+    private func setupScrollView() {
         scrollView.decelerationRate = UIScrollView.DecelerationRate.fast
         scrollView.alwaysBounceVertical = true
         scrollView.alwaysBounceHorizontal = true
     }
     
-    func setupGestureRecognizers() {
+    private func setupGestureRecognizers() {
         let tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.numberOfTapsRequired = 2
         tapGestureRecognizer.addTarget(self, action: #selector(imageViewDoubleTapped))
@@ -77,13 +77,13 @@ private extension ImageViewerController {
         imageView.addGestureRecognizer(panGestureRecognizer)
     }
     
-    func setupTransitions() {
+    private func setupTransitions() {
         guard let imageView = configuration?.imageView else { return }
         transitionHandler = ImageViewerTransitioningHandler(fromImageView: imageView, toImageView: self.imageView)
         transitioningDelegate = transitionHandler
     }
     
-    func setupActivityIndicator() {
+    private func setupActivityIndicator() {
         guard let block = configuration?.imageBlock else { return }
         activityIndicator.startAnimating()
         block { [weak self] image in
@@ -99,7 +99,7 @@ private extension ImageViewerController {
         dismiss(animated: true)
     }
     
-    @objc func imageViewDoubleTapped(recognizer: UITapGestureRecognizer) {
+    @objc private func imageViewDoubleTapped(recognizer: UITapGestureRecognizer) {
         func zoomRectForScale(scale: CGFloat, center: CGPoint) -> CGRect {
             var zoomRect = CGRect.zero
             zoomRect.size.height = imageView.frame.size.height / scale
@@ -117,7 +117,7 @@ private extension ImageViewerController {
         }
     }
     
-    @objc func imageViewPanned(_ recognizer: UIPanGestureRecognizer) {
+    @objc private func imageViewPanned(_ recognizer: UIPanGestureRecognizer) {
         guard transitionHandler != nil else { return }
             
         let translation = recognizer.translation(in: imageView)
