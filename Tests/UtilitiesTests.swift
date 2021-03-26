@@ -1,4 +1,5 @@
 import XCTest
+@testable import SimpleImageViewer
 
 class UtilitiesTests: XCTestCase {
     fileprivate let screenRect = CGRect(x: 0, y: 0, width: 640, height: 960)
